@@ -54,7 +54,7 @@ export default function Home() {
         /* navigation*/
         nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 80px; background: var(--white); }
         .logo { font-size: 38px; font-weight: 800; color: var(--primary-btn); }
-        .nav-links { display: flex; gap: 40px; font-size: 20px; font-weight: 600; }
+        .nav-links { display: flex; gap: 40px; font-size: 24px; font-weight: 600; }
         .nav-join-btn { background: transparent; border: 2px solid var(--primary-btn); color: var(--primary-btn); padding: 15px 35px; border-radius: 60px; font-size: 20px; font-weight: 700; cursor: pointer; transition: 0.3s; }
         .nav-join-btn:hover { background-color: var(--bg-pink); transform: translateY(-3px); }
 
@@ -132,7 +132,7 @@ export default function Home() {
       <nav>
         <div className="logo">🐾 JoyVibe Pet Service</div>
         <ul className="nav-links">
-          <li><a href="#">Home</a></li>
+          <li><a href="/">Home</a></li>
           <li><a href="#">About</a></li>
           <li><a href="#">Training</a></li>
           <li><a href="#">Blog</a></li>
