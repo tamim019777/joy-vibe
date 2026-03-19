@@ -175,9 +175,11 @@ export default function Home() {
         .nav-links a { transition: color 0.3s ease; }
         .nav-links a:hover { color: #ffbbae; } /* একদম হালকা পিঙ্ক কালার */
         
-        .nav-join-btn { background: transparent; border: 2px solid var(--primary-btn); color: var(--primary-btn); padding: 15px 35px; border-radius: 60px; font-size: 20px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+        /* 🔥 Join btn z-index updated so it stays above the ad 🔥 */
+        .nav-join-btn { position: relative; z-index: 9999; background: transparent; border: 2px solid var(--primary-btn); color: var(--primary-btn); padding: 15px 35px; border-radius: 60px; font-size: 20px; font-weight: 700; cursor: pointer; transition: 0.3s; }
         /* Nav Join Button Hover - Light Pink Background Added */
         .nav-join-btn:hover { background-color: #fff0ed; color: var(--primary-btn); border-color: #fff0ed; transform: translateY(-3px); }
+        
         /* Hero Section */
         .hero { background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1600&q=80') center/cover; height: 700px; display: flex; align-items: center; color: var(--white); }
         .hero-content-wrapper { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 50px; }
@@ -441,12 +443,13 @@ export default function Home() {
               <a href="/details/1" className="btn">Read More</a>
             </div>
             
+            {/* 🔥 ২ নম্বর কার্ড - স্মার্টলিংক অ্যাড করা হয়েছে 🔥 */}
             <div className="article-card">
-              <a href="/details/2"><img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=400&q=80" alt="Cat eating" /></a>
+              <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer"><img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=400&q=80" alt="Cat eating" /></a>
               <h4>🐱 Choosing the Right Cat Food: Wet vs. Dry Options</h4>
               <div className="meta">Date: June 2, 2023 | By Emma Carter</div>
               <p>Confused by the pet food aisle? We break down the pros and cons of wet and dry food to help you choose the best nutritional options for your feline friend's specific needs.</p>
-              <a href="/details/2" className="btn">Read More</a>
+              <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer" className="btn">Read More</a>
             </div>
 
             <div className="article-card">
@@ -473,12 +476,13 @@ export default function Home() {
               <a href="/details/5" className="btn">Read More</a>
             </div>
 
+            {/* 🔥 ৬ নম্বর কার্ড - স্মার্টলিংক অ্যাড করা হয়েছে 🔥 */}
             <div className="article-card">
-              <a href="/details/6"><img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=400&q=80" alt="Healthy cat" /></a>
+              <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer"><img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=400&q=80" alt="Healthy cat" /></a>
               <h4>🩺 Signs Your Cat is Happy and Healthy: A Checklist for Owners</h4>
               <div className="meta">Date: August 5, 2023 | By Dr. Alan Smith</div>
               <p>Cats can be experts at hiding illness. Learn the subtle signs of a healthy, happy cat, from vocalizations to grooming habits, so you know exactly when to consult a vet.</p>
-              <a href="/details/6" className="btn">Read More</a>
+              <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer" className="btn">Read More</a>
             </div>
           </div>
         </div>
