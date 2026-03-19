@@ -1,10 +1,118 @@
 "use client";
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+
+// হিরো সেকশনের ব্যানার অ্যাডের জন্য কম্পোনেন্ট
+const BannerAd = () => {
+  const bannerRef = useRef(null);
+
+  useEffect(() => {
+    if (bannerRef.current && !bannerRef.current.firstChild) {
+      const conf = document.createElement('script');
+      conf.type = 'text/javascript';
+      conf.innerHTML = `atOptions = {
+        'key' : 'f57116aa8506cb827f58b417f8b070df',
+        'format' : 'iframe',
+        'height' : 250,
+        'width' : 300,
+        'params' : {}
+      };`;
+
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = "https://www.highperformanceformat.com/f57116aa8506cb827f58b417f8b070df/invoke.js";
+
+      bannerRef.current.appendChild(conf);
+      bannerRef.current.appendChild(script);
+    }
+  }, []);
+
+  return (
+    <div 
+      ref={bannerRef} 
+      style={{ 
+        display: 'inline-block',
+        background: 'rgba(255, 255, 255, 0.1)', 
+        padding: '10px', 
+        borderRadius: '12px',
+        boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
+        backdropFilter: 'blur(5px)'
+      }}
+    ></div>
+  );
+};
+
+// নেটিভ ব্যানার অ্যাডের জন্য কম্পোনেন্ট
+const NativeBannerAd = () => {
+  const nativeRef = useRef(null);
+
+  useEffect(() => {
+    if (nativeRef.current && nativeRef.current.childElementCount === 0) {
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.async = true;
+      script.setAttribute('data-cfasync', 'false');
+      script.src = "https://pl28946490.profitablecpmratenetwork.com/7cebdac71a76e522c806492d1416e62e/invoke.js";
+      
+      nativeRef.current.appendChild(script);
+    }
+  }, []);
+
+  return (
+    <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        width: '100%', 
+        background: 'linear-gradient(to bottom, var(--bg-pink) 50%, var(--bg-teal) 50%)',
+        paddingTop: '40px',
+        paddingBottom: '40px' 
+    }}>
+      <div ref={nativeRef} id="container-7cebdac71a76e522c806492d1416e62e" style={{ 
+        width: '100%', 
+        maxWidth: '1200px', 
+        minHeight: '100px', 
+        backgroundColor: 'var(--bg-pink)' 
+      }}></div>
+    </div>
+  );
+};
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState(0);
-  const contentRefs = useRef([]);
+
+  // ১. পপআন্ডার (Popunder) অ্যাড যুক্ত করার জন্য useEffect
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = "https://pl28946433.profitablecpmratenetwork.com/d8/05/6b/d8056b0f6f974758e45a7d16da6a5660.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, []);
+
+  // ২. সোশ্যাল বার (Social Bar) অ্যাড যুক্ত করার জন্য নতুন useEffect
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = "https://pl28946492.profitablecpmratenetwork.com/26/e1/49/26e149fe3b8ed33a49717ff535c19134.js";
+    script.async = true;
+    
+
+    document.body.appendChild(script);
+
+    return () => {
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, []);
+
+  // স্মার্টলিংকের URL
+  const smartLinkUrl = "https://www.profitablecpmratenetwork.com/ed4cz34rm1?key=3a20961e8182c28f62dc194be1d91d09";
 
   const faqs = [
     {
@@ -47,7 +155,8 @@ export default function Home() {
         body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: var(--text-dark); }
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
-        img { max-width: 100%; display: block; border-radius: 12px; }
+        img { max-width: 100%; display: block; border-radius: 12px; transition: transform 0.3s; }
+        img:hover { transform: scale(1.02); }
 
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
 
@@ -59,9 +168,12 @@ export default function Home() {
         .nav-join-btn:hover { background-color: var(--bg-pink); transform: translateY(-3px); }
 
         /* Hero Section */
-        .hero { background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1600&q=80') center/cover; height: 700px; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--white); }
-        .hero h1 { font-size: 80px; font-weight: 800; margin-bottom: 25px; line-height: 1.1; }
-        .hero p { font-size: 26px; margin-bottom: 40px; max-width: 950px; margin-left: auto; margin-right: auto; line-height: 1.5; }
+        .hero { background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1600&q=80') center/cover; height: 700px; display: flex; align-items: center; color: var(--white); }
+        .hero-content-wrapper { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 50px; }
+        .hero-text-area { flex: 1; text-align: left; }
+        .hero h1 { font-size: 70px; font-weight: 800; margin-bottom: 25px; line-height: 1.1; }
+        .hero p { font-size: 24px; margin-bottom: 40px; line-height: 1.5; color: #f0f0f0; }
+        .hero-ad-area { flex: 0.8; display: flex; justify-content: flex-end; }
 
         /* Categories Section */
         .categories-sec { background-color: var(--bg-pink); padding: 120px 0; }
@@ -71,7 +183,7 @@ export default function Home() {
         .category-text { flex: 1; padding: 60px; background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .category-text h3 { font-size: 42px; font-weight: 700; margin-bottom: 20px; color: #222; }
         .category-text p { font-size: 22px; color: var(--text-light); margin-bottom: 35px; line-height: 1.6; }
-        .category-image { flex: 1.2; }
+        .category-image { flex: 1.2; cursor: pointer; }
         .category-image img { width: 100%; height: 500px; object-fit: cover; border-radius: 15px; }
 
         /* Articles Section */
@@ -126,6 +238,13 @@ export default function Home() {
         .footer-bottom-text { font-size: 22px; font-weight: 500; color: #333; margin-top: 15px; }
         .scroll-to-top { position: absolute; bottom: 60px; right: 80px; background-color: #000; color: #fff; width: 55px; height: 55px; border: none; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; }
         .scroll-to-top:hover { background-color: #444; }
+
+        /* Mobile Responsive */
+        @media (max-width: 968px) {
+          .hero-content-wrapper { flex-direction: column; text-align: center; }
+          .hero-text-area { text-align: center; }
+          .hero-ad-area { justify-content: center; margin-top: 30px; }
+        }
       `}</style>
 
       {/* Navigation */}
@@ -133,22 +252,29 @@ export default function Home() {
         <div className="logo">🐾 JoyVibe Pet Service</div>
         <ul className="nav-links">
           <li><a href="/">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Training</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="#">Resources Hub</a></li>
-          <li><a href="#">Let's Connect</a></li>
+          {/* 🔥 নেভবারে Home ছাড়া বাকি সব লিংকে স্মার্টলিংক 🔥 */}
+          <li><a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">About</a></li>
+          <li><a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">Training</a></li>
+          <li><a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">Blog</a></li>
+          <li><a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">Resources Hub</a></li>
+          <li><a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">Let's Connect</a></li>
         </ul>
-        <a href="#" className="nav-join-btn">Join our App</a>
+        <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer" className="nav-join-btn">Join our App</a>
       </nav>
 
       {/* Hero Section */}
       <header className="hero">
         <div className="container">
-          <h1>Pet Health and Behavior Guide</h1>
-          <p>Pet health guide is focused on finding therapeutic resources for your pet's physical and mental well-being to lead a happy life.</p>
-          {/* Hero Read More - ID 7 */}
-          <a href="/details/7" className="btn">Read More</a>
+          <div className="hero-content-wrapper">
+            <div className="hero-text-area">
+              <h1>Pet Health and Behavior Guide</h1>
+              <p>Pet health guide is focused on finding therapeutic resources for your pet's physical and mental well-being to lead a happy life.</p>
+              <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer" className="btn">Read More</a>
+            </div>
+            <div className="hero-ad-area">
+              <BannerAd />
+            </div>
+          </div>
         </div>
       </header>
 
@@ -161,11 +287,10 @@ export default function Home() {
             <div className="category-text">
               <h3>Pet Health Tips</h3>
               <p>Learn what to watch out for to keep your dog or cat happy and healthy through preventative medicine.</p>
-              {/* Category Learn More - ID 8 */}
               <a href="/details/8" className="btn">Learn More</a>
             </div>
             <div className="category-image">
-              <a href="/details/8"><img src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?auto=format&fit=crop&w=600&q=80" alt="Vet checking dog" /></a>
+              <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer"><img src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?auto=format&fit=crop&w=600&q=80" alt="Vet checking dog" /></a>
             </div>
           </div>
 
@@ -173,11 +298,10 @@ export default function Home() {
             <div className="category-text">
               <h3>Pet Behavior & Training</h3>
               <p>Find basic tips to keep your pet's behavior in check or to fix behavioral issues.</p>
-              {/* Category Learn More - ID 9 */}
               <a href="/details/9" className="btn">Learn More</a>
             </div>
             <div className="category-image">
-              <a href="/details/9"><img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=600&q=80" alt="Training dog" /></a>
+              <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer"><img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=600&q=80" alt="Training dog" /></a>
             </div>
           </div>
 
@@ -185,27 +309,28 @@ export default function Home() {
             <div className="category-text">
               <h3>DIY & Recipes</h3>
               <p>Easy, fun, and healthy snacks, treats, and light meals you can make at home.</p>
-              {/* Category Learn More - ID 10 */}
               <a href="/details/10" className="btn">Learn More</a>
             </div>
             <div className="category-image">
-              <a href="/details/10"><img src="https://images.unsplash.com/photo-1582798358481-d199fb7347bb?auto=format&fit=crop&w=600&q=80" alt="Dog treats" /></a>
+              <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer"><img src="https://images.unsplash.com/photo-1582798358481-d199fb7347bb?auto=format&fit=crop&w=600&q=80" alt="Dog treats" /></a>
             </div>
           </div>
 
-          <div className="category-row reverse">
+          <div className="category-row reverse" style={{ marginBottom: '0' }}>
             <div className="category-text">
               <h3>Pet Lifestyle & Activities</h3>
               <p>Fun, active events, exercises, and games you and your pet can enjoy.</p>
-              {/* Category Learn More - ID 11 */}
               <a href="/details/11" className="btn">Learn More</a>
             </div>
             <div className="category-image">
-              <a href="/details/11"><img src="https://images.unsplash.com/photo-1544568100-847a948585b9?auto=format&fit=crop&w=600&q=80" alt="Dogs playing" /></a>
+              <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer"><img src="https://images.unsplash.com/photo-1544568100-847a948585b9?auto=format&fit=crop&w=600&q=80" alt="Dogs playing" /></a>
             </div>
           </div>
         </div>
       </section>
+
+      {/* নেটিভ ব্যানার অ্যাডটি এখানে কল করা হয়েছে */}
+      <NativeBannerAd />
 
       {/* Articles Section */}
       <section className="articles-sec">
@@ -299,8 +424,7 @@ export default function Home() {
 
       {/* Community Section */}
       <section className="community-container">
-        {/* Community Button - ID 12 */}
-        <a href="/details/12" className="join-btn-huge">
+        <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer" className="join-btn-huge">
           <span className="mic-icon">📢</span> Join Our Community
         </a>
       </section>
@@ -308,21 +432,29 @@ export default function Home() {
       {/* Footer Section */}
       <footer>
         <div className="footer-socials">
-          <svg viewBox="0 0 24 24"><path d="M22.675 0h-21.35C.597 0 0 .597 0 1.325v21.351C0 23.403.597 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.597 1.323-1.324V1.325C24 .597 23.403 0 22.675 0z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.203 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.951-7.252 4.168 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.367 18.624 0 12.017 0z"/></svg>
+         
+          <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24"><path d="M22.675 0h-21.35C.597 0 0 .597 0 1.325v21.351C0 23.403.597 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.597 1.323-1.324V1.325C24 .597 23.403 0 22.675 0z"/></svg>
+          </a>
+          <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.203 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.951-7.252 4.168 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.367 18.624 0 12.017 0z"/></svg>
+          </a>
         </div>
         <div className="footer-main-links">
-          <a href="#">Home</a>
-          <a href="#">About</a>
-          <a href="#">Contact</a>
-          <a href="#">Categories</a>
-          <a href="#">Advertise with Us</a>
+          <a href="/">Home</a>
+  
+          <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">About</a>
+          <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">Contact</a>
+          <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">Categories</a>
+          <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">Advertise with Us</a>
         </div>
         <div className="footer-bottom-group">
           <div className="footer-policy-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms & Conditions</a>
+            <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+            <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
           </div>
           <div className="footer-bottom-text">Copyright © 2025 Super Blank</div>
         </div>
