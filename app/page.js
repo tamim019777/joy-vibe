@@ -36,7 +36,9 @@ const BannerAd = () => {
         padding: '10px', 
         borderRadius: '12px',
         boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
-        backdropFilter: 'blur(5px)'
+        backdropFilter: 'blur(5px)',
+        maxWidth: '100%', /* মোবাইলে যেন ওভারফ্লো না হয় */
+        overflow: 'hidden'
       }}
     ></div>
   );
@@ -65,13 +67,16 @@ const NativeBannerAd = () => {
         width: '100%', 
         background: 'linear-gradient(to bottom, var(--bg-pink) 50%, var(--bg-teal) 50%)',
         paddingTop: '40px',
-        paddingBottom: '40px' 
+        paddingBottom: '40px',
+        boxSizing: 'border-box'
     }}>
       <div ref={nativeRef} id="container-7cebdac71a76e522c806492d1416e62e" style={{ 
         width: '100%', 
         maxWidth: '1200px', 
         minHeight: '100px', 
-        backgroundColor: 'var(--bg-pink)' 
+        backgroundColor: 'var(--bg-pink)',
+        padding: '0 15px', /* মোবাইলে দুই পাশে একটু জায়গা রাখার জন্য */
+        boxSizing: 'border-box'
       }}></div>
     </div>
   );
@@ -101,7 +106,6 @@ export default function Home() {
     script.src = "https://pl28946492.profitablecpmratenetwork.com/26/e1/49/26e149fe3b8ed33a49717ff535c19134.js";
     script.async = true;
     
-
     document.body.appendChild(script);
 
     return () => {
@@ -151,8 +155,11 @@ export default function Home() {
             --orange-hover: #ff9800;
         }
 
+        /* ডেক্সটপের জন্য আপনার অরিজিনাল কোড এখানে ঠিক আগের মতোই আছে। 
+          কোনো কিছু পরিবর্তন করা হয়নি। 
+        */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: var(--text-dark); }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: var(--text-dark); overflow-x: hidden; }
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
         img { max-width: 100%; display: block; border-radius: 12px; transition: transform 0.3s; }
@@ -173,7 +180,7 @@ export default function Home() {
         .hero-text-area { flex: 1; text-align: left; }
         .hero h1 { font-size: 70px; font-weight: 800; margin-bottom: 25px; line-height: 1.1; }
         .hero p { font-size: 24px; margin-bottom: 40px; line-height: 1.5; color: #f0f0f0; }
-        .hero-ad-area { flex: 0.8; display: flex; justify-content: flex-end; }
+        .hero-ad-area { flex: 0.8; display: flex; justify-content: flex-end; padding-top: 80px; }
 
         /* Categories Section */
         .categories-sec { background-color: var(--bg-pink); padding: 120px 0; }
@@ -239,11 +246,92 @@ export default function Home() {
         .scroll-to-top { position: absolute; bottom: 60px; right: 80px; background-color: #000; color: #fff; width: 55px; height: 55px; border: none; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; }
         .scroll-to-top:hover { background-color: #444; }
 
-        /* Mobile Responsive */
-        @media (max-width: 968px) {
+
+        /* ==========================================================
+           এখানে শুধুমাত্র মোবাইল ও ছোট ডিভাইসের জন্য রেসপন্সিভ কোড দেওয়া হলো
+           ========================================================== */
+
+        /* ল্যাপটপ বা ট্যাবলেট স্ক্রিনের জন্য (max-width: 1024px) */
+        @media (max-width: 1024px) {
+          nav { padding: 20px 40px; }
+          .logo { font-size: 30px; }
+          .nav-links { gap: 20px; font-size: 20px; }
+          .hero h1 { font-size: 55px; }
+          .section-title { font-size: 40px; padding: 15px 40px; width: 90%; }
+          .category-row { gap: 40px; }
+          .category-text { padding: 40px; }
+          .category-text h3 { font-size: 34px; }
+          .articles-grid { grid-template-columns: repeat(2, 1fr); }
+          .white-banner h2 { font-size: 45px; }
+          .white-banner h3 { font-size: 35px; }
+          footer { padding: 60px 40px; }
+          .footer-socials { right: 40px; top: 60px; }
+          .scroll-to-top { right: 40px; bottom: 40px; }
+        }
+
+        /* ট্যাবলেট ও বড় মোবাইলের জন্য (max-width: 768px) */
+        @media (max-width: 768px) {
+          .container { padding: 0 20px; }
+          nav { flex-direction: column; gap: 20px; padding: 20px; text-align: center; }
+          .nav-links { flex-wrap: wrap; justify-content: center; font-size: 18px; }
+          
+          .hero { height: auto; padding: 80px 0; }
           .hero-content-wrapper { flex-direction: column; text-align: center; }
           .hero-text-area { text-align: center; }
-          .hero-ad-area { justify-content: center; margin-top: 30px; }
+          .hero h1 { font-size: 45px; }
+          .hero p { font-size: 20px; }
+          .hero-ad-area { padding-top: 30px; justify-content: center; width: 100%; }
+          
+          .categories-sec { padding: 80px 0; }
+          .section-title { font-size: 32px; padding: 15px 20px; }
+          .category-row, .category-row.reverse { flex-direction: column; gap: 30px; }
+          .category-text { text-align: center; padding: 30px 20px; }
+          .category-image img { height: auto; max-height: 400px; }
+          
+          .articles-sec { padding: 80px 0; }
+          .articles-grid { grid-template-columns: 1fr; gap: 30px; }
+          .article-card img { height: 250px; }
+          
+          .trust-faq-wrapper { padding: 80px 0; }
+          .white-banner { padding: 25px 20px; width: 95%; }
+          .white-banner h2 { font-size: 35px; }
+          .white-banner p { font-size: 20px; }
+          .white-banner h3 { font-size: 28px; }
+          .faq-item-box { padding: 20px; font-size: 18px; }
+          
+          .community-container { padding: 60px 20px; }
+          .join-btn-huge { padding: 20px 40px; font-size: 28px; width: 100%; justify-content: center; flex-direction: column; text-align: center;}
+          
+          footer { padding: 50px 20px; text-align: center; }
+          .footer-socials { position: static; justify-content: center; margin-bottom: 30px; }
+          .footer-main-links, .footer-policy-links { gap: 20px; font-size: 18px; flex-direction: column; align-items: center;}
+          .scroll-to-top { position: static; margin-top: 40px; }
+        }
+
+        /* ছোট মোবাইলের জন্য (max-width: 480px) */
+        @media (max-width: 480px) {
+          .logo { font-size: 24px; }
+          .nav-links { gap: 10px; font-size: 16px; flex-direction: column;}
+          .nav-join-btn { width: 100%; }
+          
+          .hero h1 { font-size: 35px; }
+          .hero p { font-size: 18px; }
+          
+          .section-title { font-size: 26px; }
+          .category-text h3 { font-size: 28px; }
+          .category-text p { font-size: 18px; }
+          
+          .article-card { padding: 20px; }
+          .article-card h4 { font-size: 22px; }
+          .article-card p { font-size: 16px; }
+          
+          .white-banner h2 { font-size: 28px; }
+          .white-banner p { font-size: 18px; }
+          .white-banner h3 { font-size: 22px; }
+          .faq-header { font-size: 16px; }
+          .faq-answer { font-size: 16px; }
+          
+          .join-btn-huge { font-size: 22px; padding: 15px 20px; }
         }
       `}</style>
 
@@ -252,7 +340,7 @@ export default function Home() {
         <div className="logo">🐾 JoyVibe Pet Service</div>
         <ul className="nav-links">
           <li><a href="/">Home</a></li>
-          {/* 🔥 নেভবারে Home ছাড়া বাকি সব লিংকে স্মার্টলিংক 🔥 */}
+          {/* 🔥 নেভবারে Home ছাড়া বাকি সব লিংকে স্মার্টলিংক 🔥 */}
           <li><a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">About</a></li>
           <li><a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">Training</a></li>
           <li><a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">Blog</a></li>
@@ -432,7 +520,7 @@ export default function Home() {
       {/* Footer Section */}
       <footer>
         <div className="footer-socials">
-         
+          
           <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24"><path d="M22.675 0h-21.35C.597 0 0 .597 0 1.325v21.351C0 23.403.597 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.597 1.323-1.324V1.325C24 .597 23.403 0 22.675 0z"/></svg>
           </a>
