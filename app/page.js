@@ -85,6 +85,9 @@ const NativeBannerAd = () => {
 export default function Home() {
   const [openFaq, setOpenFaq] = useState(0);
 
+  // সোশ্যাল বারের জন্য নতুন Ref (Hero সেকশনের ভেতরে বসানোর জন্য)
+  const socialBarRef = useRef(null);
+
   // ১. পপআন্ডার (Popunder) অ্যাড যুক্ত করার জন্য useEffect
   useEffect(() => {
     const script = document.createElement('script');
@@ -99,20 +102,16 @@ export default function Home() {
     };
   }, []);
 
-  // ২. সোশ্যাল বার (Social Bar) অ্যাড যুক্ত করার জন্য নতুন useEffect
+  // ২. সোশ্যাল বার (Social Bar) অ্যাড যুক্ত করার জন্য useEffect (এখন নির্দিষ্ট div-এ লোড হবে)
   useEffect(() => {
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = "https://pl28946492.profitablecpmratenetwork.com/26/e1/49/26e149fe3b8ed33a49717ff535c19134.js";
-    script.async = true;
-    
-    document.body.appendChild(script);
-
-    return () => {
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
-    };
+    if (socialBarRef.current && socialBarRef.current.childElementCount === 0) {
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = "https://pl28946492.profitablecpmratenetwork.com/26/e1/49/26e149fe3b8ed33a49717ff535c19134.js";
+      script.async = true;
+      
+      socialBarRef.current.appendChild(script);
+    }
   }, []);
 
   // স্মার্টলিংকের URL
@@ -175,13 +174,12 @@ export default function Home() {
         .nav-links a { transition: color 0.3s ease; }
         .nav-links a:hover { color: #ffbbae; } /* একদম হালকা পিঙ্ক কালার */
         
-        /* 🔥 Join btn z-index updated so it stays above the ad 🔥 */
-        .nav-join-btn { position: relative; z-index: 9999; background: transparent; border: 2px solid var(--primary-btn); color: var(--primary-btn); padding: 15px 35px; border-radius: 60px; font-size: 20px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+        .nav-join-btn { background: transparent; border: 2px solid var(--primary-btn); color: var(--primary-btn); padding: 15px 35px; border-radius: 60px; font-size: 20px; font-weight: 700; cursor: pointer; transition: 0.3s; }
         /* Nav Join Button Hover - Light Pink Background Added */
         .nav-join-btn:hover { background-color: #fff0ed; color: var(--primary-btn); border-color: #fff0ed; transform: translateY(-3px); }
         
-        /* Hero Section */
-        .hero { background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1600&q=80') center/cover; height: 700px; display: flex; align-items: center; color: var(--white); }
+        /* Hero Section - 🔥 position: relative করা হয়েছে অ্যাডটাকে ধরে রাখার জন্য 🔥 */
+        .hero { position: relative; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1600&q=80') center/cover; height: 700px; display: flex; align-items: center; color: var(--white); }
         .hero-content-wrapper { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 50px; }
         .hero-text-area { flex: 1; text-align: left; }
         .hero h1 { font-size: 70px; font-weight: 800; margin-bottom: 25px; line-height: 1.1; }
@@ -253,7 +251,6 @@ export default function Home() {
         .footer-bottom-text { font-size: 22px; font-weight: 500; color: #333; margin-top: 15px; }
         .scroll-to-top { position: absolute; bottom: 60px; right: 80px; background-color: #000; color: #fff; width: 55px; height: 55px; border: none; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; }
         .scroll-to-top:hover { background-color: #444; }
-
 
         /* ==========================================================
            এখানে শুধুমাত্র মোবাইল ও ছোট ডিভাইসের জন্য রেসপন্সিভ কোড দেওয়া হলো
@@ -349,7 +346,6 @@ export default function Home() {
         <div className="logo">🐾 JoyVibe Pet Service</div>
         <ul className="nav-links">
           <li><a href="/">Home</a></li>
-          {/* 🔥 নেভবারে Home ছাড়া বাকি সব লিংকে স্মার্টলিংক 🔥 */}
           <li><a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">About</a></li>
           <li><a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">Training</a></li>
           <li><a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">Blog</a></li>
@@ -361,6 +357,19 @@ export default function Home() {
 
       {/* Hero Section */}
       <header className="hero">
+        {/* 🔥 সোশ্যাল বার অ্যাডটি এইখানে Hero সেকশনের একদম টপ-রাইটে বসবে 🔥 */}
+        <div 
+          ref={socialBarRef} 
+          style={{ 
+            position: 'absolute', 
+            top: '20px', 
+            right: '20px', 
+            zIndex: 9999,
+            minWidth: '300px', /* অ্যাডটি যেন চ্যাপ্টা না হয় */
+            minHeight: '50px'
+          }} 
+        ></div>
+
         <div className="container">
           <div className="hero-content-wrapper">
             <div className="hero-text-area">
@@ -369,6 +378,7 @@ export default function Home() {
               <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer" className="btn">Read More</a>
             </div>
             <div className="hero-ad-area">
+              {/* ব্যানার অ্যাড আগের মতোই থাকবে */}
               <BannerAd />
             </div>
           </div>
@@ -443,7 +453,7 @@ export default function Home() {
               <a href="/details/1" className="btn">Read More</a>
             </div>
             
-            {/* 🔥 ২ নম্বর কার্ড - স্মার্টলিংক অ্যাড করা হয়েছে 🔥 */}
+            {/* 🔥 ২ নম্বর কার্ড - স্মার্টলিংক অ্যাড করা হয়েছে 🔥 */}
             <div className="article-card">
               <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer"><img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=400&q=80" alt="Cat eating" /></a>
               <h4>🐱 Choosing the Right Cat Food: Wet vs. Dry Options</h4>
@@ -476,7 +486,7 @@ export default function Home() {
               <a href="/details/5" className="btn">Read More</a>
             </div>
 
-            {/* 🔥 ৬ নম্বর কার্ড - স্মার্টলিংক অ্যাড করা হয়েছে 🔥 */}
+            {/* 🔥 ৬ নম্বর কার্ড - স্মার্টলিংক অ্যাড করা হয়েছে 🔥 */}
             <div className="article-card">
               <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer"><img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=400&q=80" alt="Healthy cat" /></a>
               <h4>🩺 Signs Your Cat is Happy and Healthy: A Checklist for Owners</h4>
