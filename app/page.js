@@ -7,22 +7,19 @@ const BannerAd = () => {
   const bannerRef = useRef(null);
 
   useEffect(() => {
-    if (bannerRef.current && !bannerRef.current.firstChild) {
-      const conf = document.createElement('script');
-      conf.type = 'text/javascript';
-      conf.innerHTML = `atOptions = {
-        'key' : 'f57116aa8506cb827f58b417f8b070df',
-        'format' : 'iframe',
-        'height' : 250,
-        'width' : 300,
-        'params' : {}
-      };`;
+    // atOptions গ্লোবাল window অবজেক্টে সেট করতে হবে, নাহলে অ্যাড স্ক্রিপ্ট পাবে না
+    window.atOptions = {
+      'key' : 'f57116aa8506cb827f58b417f8b070df',
+      'format' : 'iframe',
+      'height' : 250,
+      'width' : 300,
+      'params' : {}
+    };
 
+    if (bannerRef.current && !bannerRef.current.querySelector('script[src*="invoke.js"]')) {
       const script = document.createElement('script');
       script.type = 'text/javascript';
       script.src = "https://www.highperformanceformat.com/f57116aa8506cb827f58b417f8b070df/invoke.js";
-
-      bannerRef.current.appendChild(conf);
       bannerRef.current.appendChild(script);
     }
   }, []);
@@ -37,7 +34,7 @@ const BannerAd = () => {
         borderRadius: '12px',
         boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
         backdropFilter: 'blur(5px)',
-        maxWidth: '100%', /* মোবাইলে যেন ওভারফ্লো না হয় */
+        maxWidth: '100%', 
         overflow: 'hidden'
       }}
     ></div>
@@ -49,13 +46,12 @@ const NativeBannerAd = () => {
   const nativeRef = useRef(null);
 
   useEffect(() => {
-    if (nativeRef.current && nativeRef.current.childElementCount === 0) {
+    if (nativeRef.current && !nativeRef.current.querySelector('script')) {
       const script = document.createElement('script');
       script.type = 'text/javascript';
       script.async = true;
       script.setAttribute('data-cfasync', 'false');
       script.src = "https://pl28946490.profitablecpmratenetwork.com/7cebdac71a76e522c806492d1416e62e/invoke.js";
-      
       nativeRef.current.appendChild(script);
     }
   }, []);
@@ -75,7 +71,7 @@ const NativeBannerAd = () => {
         maxWidth: '1200px', 
         minHeight: '100px', 
         backgroundColor: 'var(--bg-pink)',
-        padding: '0 15px', /* মোবাইলে দুই পাশে একটু জায়গা রাখার জন্য */
+        padding: '0 15px', 
         boxSizing: 'border-box'
       }}></div>
     </div>
@@ -85,32 +81,28 @@ const NativeBannerAd = () => {
 export default function Home() {
   const [openFaq, setOpenFaq] = useState(0);
 
-  // সোশ্যাল বারের জন্য নতুন Ref (Hero সেকশনের ভেতরে বসানোর জন্য)
+  // সোশ্যাল বারের জন্য নতুন Ref 
   const socialBarRef = useRef(null);
 
   // ১. পপআন্ডার (Popunder) অ্যাড যুক্ত করার জন্য useEffect
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = "https://pl28946433.profitablecpmratenetwork.com/d8/05/6b/d8056b0f6f974758e45a7d16da6a5660.js";
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
-    };
+    if (!document.querySelector('script[src*="d8056b0f6f974758e45a7d16da6a5660.js"]')) {
+      const script = document.createElement('script');
+      script.src = "https://pl28946433.profitablecpmratenetwork.com/d8/05/6b/d8056b0f6f974758e45a7d16da6a5660.js";
+      script.async = true;
+      document.body.appendChild(script);
+    }
   }, []);
 
-  // ২. সোশ্যাল বার (Social Bar) অ্যাড যুক্ত করার জন্য useEffect (এখন নির্দিষ্ট div-এ লোড হবে)
+  // ২. সোশ্যাল বার (Social Bar) অ্যাড যুক্ত করার জন্য useEffect
   useEffect(() => {
-    if (socialBarRef.current && socialBarRef.current.childElementCount === 0) {
+    // সোশ্যাল বার সরাসরি বডিতে লোড করতে হয়, কোনো div এর ভেতর রাখলে অনেক সময় শো করে না
+    if (!document.querySelector('script[src*="26e149fe3b8ed33a49717ff535c19134.js"]')) {
       const script = document.createElement('script');
       script.type = 'text/javascript';
       script.src = "https://pl28946492.profitablecpmratenetwork.com/26/e1/49/26e149fe3b8ed33a49717ff535c19134.js";
       script.async = true;
-      
-      socialBarRef.current.appendChild(script);
+      document.body.appendChild(script);
     }
   }, []);
 
@@ -154,9 +146,6 @@ export default function Home() {
             --orange-hover: #ff9800;
         }
 
-        /* ডেক্সটপের জন্য আপনার অরিজিনাল কোড এখানে ঠিক আগের মতোই আছে। 
-          কোনো কিছু পরিবর্তন করা হয়নি। 
-        */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: var(--text-dark); overflow-x: hidden; }
         a { text-decoration: none; color: inherit; }
@@ -166,27 +155,22 @@ export default function Home() {
 
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
 
-      /* navigation*/
         nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 80px; background: var(--white); }
         .logo { font-size: 38px; font-weight: 800; color: var(--primary-btn); }
         .nav-links { display: flex; gap: 40px; font-size: 24px; font-weight: 600; }
-        /* Nav Links Hover - Light Pink Color Added */
         .nav-links a { transition: color 0.3s ease; }
-        .nav-links a:hover { color: #ffbbae; } /* একদম হালকা পিঙ্ক কালার */
+        .nav-links a:hover { color: #ffbbae; }
         
         .nav-join-btn { background: transparent; border: 2px solid var(--primary-btn); color: var(--primary-btn); padding: 15px 35px; border-radius: 60px; font-size: 20px; font-weight: 700; cursor: pointer; transition: 0.3s; }
-        /* Nav Join Button Hover - Light Pink Background Added */
         .nav-join-btn:hover { background-color: #fff0ed; color: var(--primary-btn); border-color: #fff0ed; transform: translateY(-3px); }
         
-        /* Hero Section - 🔥 position: relative করা হয়েছে অ্যাডটাকে ধরে রাখার জন্য 🔥 */
-        .hero { position: relative; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1600&q=80') center/cover; height: 700px; display: flex; align-items: center; color: var(--white); }
+        .hero { background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1600&q=80') center/cover; height: 700px; display: flex; align-items: center; color: var(--white); }
         .hero-content-wrapper { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 50px; }
         .hero-text-area { flex: 1; text-align: left; }
         .hero h1 { font-size: 70px; font-weight: 800; margin-bottom: 25px; line-height: 1.1; }
         .hero p { font-size: 24px; margin-bottom: 40px; line-height: 1.5; color: #f0f0f0; }
         .hero-ad-area { flex: 0.8; display: flex; justify-content: flex-end; padding-top: 80px; }
 
-        /* Categories Section */
         .categories-sec { background-color: var(--bg-pink); padding: 120px 0; }
         .section-title { font-size: 52px; font-weight: 800; margin-bottom: 90px; text-align: center; background: #fff; display: table; margin-left: auto; margin-right: auto; padding: 20px 60px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .category-row { display: flex; align-items: center; justify-content: center; gap: 80px; margin-bottom: 60px; max-width: 1300px; margin-left: auto; margin-right: auto; }
@@ -197,7 +181,6 @@ export default function Home() {
         .category-image { flex: 1.2; cursor: pointer; }
         .category-image img { width: 100%; height: 500px; object-fit: cover; border-radius: 15px; }
 
-        /* Articles Section */
         .articles-sec { background-color: var(--bg-teal); padding: 120px 0; }
         .articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; }
         .article-card { background: var(--white); padding: 30px; border-radius: 20px; text-align: left; display: flex; flex-direction: column; }
@@ -206,7 +189,6 @@ export default function Home() {
         .article-card p { font-size: 18px; margin-bottom: 25px; color: #444; line-height: 1.6; flex-grow: 1; }
         .article-card .btn { width: auto; min-width: 160px; height: 50px; display: inline-flex; align-items: center; justify-content: center; margin-top: auto; align-self: flex-start; white-space: nowrap; padding: 0 30px; }
 
-        /* Trust & FAQ Section */
         .trust-faq-wrapper { background-color: var(--bg-pink); padding: 100px 0; text-align: center; }
         .white-banner { background-color: #ffffff; max-width: 1200px; margin: 0 auto 30px auto; padding: 35px 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border-radius: 5px; }
         .white-banner h2 { font-size: 55px; font-weight: 800; color: #1a202c; }
@@ -224,7 +206,6 @@ export default function Home() {
         .faq-answer { font-size: 18px; font-weight: 400; color: #333; line-height: 1.6; }
         .faq-answer ul { list-style: disc; margin-left: 20px; }
 
-        /* Community Section - Hover Effect Updated for All Devices */
         .community-container { background-color: var(--bg-pink); padding: 80px 0 120px; text-align: center; }
         @keyframes wiggle { 0% { transform: rotate(-30deg); } 25% { transform: rotate(-10deg); } 50% { transform: rotate(-40deg); } 75% { transform: rotate(-20deg); } 100% { transform: rotate(-30deg); } }
         .join-btn-huge { background: #ffffff; color: #000000; padding: 35px 100px; border-radius: 20px; font-size: 45px; font-weight: 900; display: inline-flex; align-items: center; gap: 25px; border: none; cursor: pointer; box-shadow: 0 15px 35px rgba(0,0,0,0.1); transition: all 0.3s ease; text-decoration: none;}
@@ -234,11 +215,9 @@ export default function Home() {
         
         .mic-icon { color: #ff4d4d; display: inline-block; transform: rotate(-30deg); transition: 0.3s; }
 
-        /* Global Button Style */
         .btn { background-color: var(--primary-btn); color: var(--white); padding: 18px 45px; border: none; border-radius: 60px; font-size: 20px; font-weight: 700; cursor: pointer; display: inline-block; transition: 0.3s; }
         .btn:hover { background-color: var(--btn-hover); transform: translateY(-3px); }
 
-        /* Footer */
         footer { background-color: #cce8cc; padding: 100px 80px 80px 80px; position: relative; color: #222; display: flex; flex-direction: column; align-items: center; }
         .footer-main-links { display: flex; gap: 50px; flex-wrap: wrap; justify-content: center; margin-bottom: 60px; }
         .footer-main-links a, .footer-policy-links a { text-decoration: none; color: #333; transition: 0.2s; font-weight: 600; font-size: 24px; }
@@ -256,7 +235,17 @@ export default function Home() {
            এখানে শুধুমাত্র মোবাইল ও ছোট ডিভাইসের জন্য রেসপন্সিভ কোড দেওয়া হলো
            ========================================================== */
 
-        /* ল্যাপটপ বা ট্যাবলেট স্ক্রিনের জন্য (max-width: 1024px) */
+        /* Social Bar Responsive Style - 🔥 এখানে অ্যাডটিকে একটু নিচে নামানো হয়েছে 🔥 */
+        .social-bar-container {
+          position: absolute;
+          top: 130px; /* ডেস্কটপে একটু নিচে */
+          right: 20px;
+          z-index: 9999;
+          display: flex;
+          justify-content: flex-end;
+          align-items: flex-start;
+        }
+
         @media (max-width: 1024px) {
           nav { padding: 20px 40px; }
           .logo { font-size: 30px; }
@@ -274,7 +263,6 @@ export default function Home() {
           .scroll-to-top { right: 40px; bottom: 40px; }
         }
 
-        /* ট্যাবলেট ও বড় মোবাইলের জন্য (max-width: 768px) */
         @media (max-width: 768px) {
           .container { padding: 0 20px; }
           nav { flex-direction: column; gap: 20px; padding: 20px; text-align: center; }
@@ -305,16 +293,20 @@ export default function Home() {
           .faq-item-box { padding: 20px; font-size: 18px; }
           
           .community-container { padding: 60px 20px; }
-          /* Join Button Mobile adjustments, Hover works via active/hover state added above */
           .join-btn-huge { padding: 20px 40px; font-size: 28px; width: 100%; justify-content: center; flex-direction: column; text-align: center;}
           
           footer { padding: 50px 20px; text-align: center; }
           .footer-socials { position: static; justify-content: center; margin-bottom: 30px; }
           .footer-main-links, .footer-policy-links { gap: 20px; font-size: 18px; flex-direction: column; align-items: center;}
           .scroll-to-top { position: static; margin-top: 40px; }
+
+          /* 🔥 মোবাইলে অ্যাডটি আরও নিচে নামানো হয়েছে যাতে Nav এর ওপর না আসে 🔥 */
+          .social-bar-container {
+            top: 200px; 
+            right: 10px;
+          }
         }
 
-        /* ছোট মোবাইলের জন্য (max-width: 480px) */
         @media (max-width: 480px) {
           .logo { font-size: 24px; }
           .nav-links { gap: 10px; font-size: 16px; flex-direction: column;}
@@ -338,6 +330,12 @@ export default function Home() {
           .faq-answer { font-size: 16px; }
           
           .join-btn-huge { font-size: 22px; padding: 15px 20px; }
+
+          /* 🔥 ছোট মোবাইলে অ্যাডটির পজিশন 🔥 */
+          .social-bar-container {
+            top: 240px; 
+            right: 10px;
+          }
         }
       `}</style>
 
@@ -357,18 +355,8 @@ export default function Home() {
 
       {/* Hero Section */}
       <header className="hero">
-        {/* 🔥 সোশ্যাল বার অ্যাডটি এইখানে Hero সেকশনের একদম টপ-রাইটে বসবে 🔥 */}
-        <div 
-          ref={socialBarRef} 
-          style={{ 
-            position: 'absolute', 
-            top: '20px', 
-            right: '20px', 
-            zIndex: 9999,
-            minWidth: '300px', /* অ্যাডটি যেন চ্যাপ্টা না হয় */
-            minHeight: '50px'
-          }} 
-        ></div>
+        {/* 🔥 সোশ্যাল বার অ্যাড কন্টেইনার (CSS ক্লাস দিয়ে কন্ট্রোল করা হয়েছে) 🔥 */}
+        <div ref={socialBarRef} className="social-bar-container"></div>
 
         <div className="container">
           <div className="hero-content-wrapper">
@@ -378,7 +366,7 @@ export default function Home() {
               <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer" className="btn">Read More</a>
             </div>
             <div className="hero-ad-area">
-              {/* ব্যানার অ্যাড আগের মতোই থাকবে */}
+              {/* ব্যানার অ্যাড */}
               <BannerAd />
             </div>
           </div>
@@ -453,7 +441,6 @@ export default function Home() {
               <a href="/details/1" className="btn">Read More</a>
             </div>
             
-            {/* 🔥 ২ নম্বর কার্ড - স্মার্টলিংক অ্যাড করা হয়েছে 🔥 */}
             <div className="article-card">
               <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer"><img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=400&q=80" alt="Cat eating" /></a>
               <h4>🐱 Choosing the Right Cat Food: Wet vs. Dry Options</h4>
@@ -486,7 +473,6 @@ export default function Home() {
               <a href="/details/5" className="btn">Read More</a>
             </div>
 
-            {/* 🔥 ৬ নম্বর কার্ড - স্মার্টলিংক অ্যাড করা হয়েছে 🔥 */}
             <div className="article-card">
               <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer"><img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=400&q=80" alt="Healthy cat" /></a>
               <h4>🩺 Signs Your Cat is Happy and Healthy: A Checklist for Owners</h4>
@@ -541,7 +527,6 @@ export default function Home() {
       {/* Footer Section */}
       <footer>
         <div className="footer-socials">
-          
           <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24"><path d="M22.675 0h-21.35C.597 0 0 .597 0 1.325v21.351C0 23.403.597 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.597 1.323-1.324V1.325C24 .597 23.403 0 22.675 0z"/></svg>
           </a>
@@ -554,7 +539,6 @@ export default function Home() {
         </div>
         <div className="footer-main-links">
           <a href="/">Home</a>
-  
           <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">About</a>
           <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">Contact</a>
           <a href={smartLinkUrl} target="_blank" rel="noopener noreferrer">Categories</a>
