@@ -37,7 +37,7 @@ const BannerAd = () => {
         borderRadius: '12px',
         boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
         backdropFilter: 'blur(5px)',
-        maxWidth: '100%', /* মোবাইলে যেন ওভারফ্লো না হয় */
+        maxWidth: '100%', /* মোবাইলে যেন ওভারফ্লো না হয় */
         overflow: 'hidden'
       }}
     ></div>
@@ -75,7 +75,7 @@ const NativeBannerAd = () => {
         maxWidth: '1200px', 
         minHeight: '100px', 
         backgroundColor: 'var(--bg-pink)',
-        padding: '0 15px', /* মোবাইলে দুই পাশে একটু জায়গা রাখার জন্য */
+        padding: '0 15px', /* মোবাইলে দুই পাশে একটু জায়গা রাখার জন্য */
         boxSizing: 'border-box'
       }}></div>
     </div>
@@ -156,7 +156,7 @@ export default function Home() {
         }
 
         /* ডেক্সটপের জন্য আপনার অরিজিনাল কোড এখানে ঠিক আগের মতোই আছে। 
-          কোনো কিছু পরিবর্তন করা হয়নি। 
+          কোনো কিছু পরিবর্তন করা হয়নি। 
         */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: var(--text-dark); overflow-x: hidden; }
@@ -167,13 +167,17 @@ export default function Home() {
 
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
 
-        /* navigation*/
+      /* navigation*/
         nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 80px; background: var(--white); }
         .logo { font-size: 38px; font-weight: 800; color: var(--primary-btn); }
         .nav-links { display: flex; gap: 40px; font-size: 24px; font-weight: 600; }
+        /* Nav Links Hover - Light Pink Color Added */
+        .nav-links a { transition: color 0.3s ease; }
+        .nav-links a:hover { color: #ffbbae; } /* একদম হালকা পিঙ্ক কালার */
+        
         .nav-join-btn { background: transparent; border: 2px solid var(--primary-btn); color: var(--primary-btn); padding: 15px 35px; border-radius: 60px; font-size: 20px; font-weight: 700; cursor: pointer; transition: 0.3s; }
-        .nav-join-btn:hover { background-color: var(--bg-pink); transform: translateY(-3px); }
-
+        /* Nav Join Button Hover - Light Pink Background Added */
+        .nav-join-btn:hover { background-color: #fff0ed; color: var(--primary-btn); border-color: #fff0ed; transform: translateY(-3px); }
         /* Hero Section */
         .hero { background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1600&q=80') center/cover; height: 700px; display: flex; align-items: center; color: var(--white); }
         .hero-content-wrapper { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 50px; }
@@ -220,12 +224,14 @@ export default function Home() {
         .faq-answer { font-size: 18px; font-weight: 400; color: #333; line-height: 1.6; }
         .faq-answer ul { list-style: disc; margin-left: 20px; }
 
-        /* Community Section */
+        /* Community Section - Hover Effect Updated for All Devices */
         .community-container { background-color: var(--bg-pink); padding: 80px 0 120px; text-align: center; }
         @keyframes wiggle { 0% { transform: rotate(-30deg); } 25% { transform: rotate(-10deg); } 50% { transform: rotate(-40deg); } 75% { transform: rotate(-20deg); } 100% { transform: rotate(-30deg); } }
         .join-btn-huge { background: #ffffff; color: #000000; padding: 35px 100px; border-radius: 20px; font-size: 45px; font-weight: 900; display: inline-flex; align-items: center; gap: 25px; border: none; cursor: pointer; box-shadow: 0 15px 35px rgba(0,0,0,0.1); transition: all 0.3s ease; text-decoration: none;}
-        .join-btn-huge:hover { background-color: var(--orange-hover); color: #fff; transform: scale(1.05); box-shadow: 0 20px 40px rgba(255, 152, 0, 0.3); }
-        .join-btn-huge:hover .mic-icon { color: #fff; animation: wiggle 0.5s ease-in-out infinite; }
+        
+        .join-btn-huge:hover, .join-btn-huge:active { background-color: var(--orange-hover); color: #fff; transform: scale(1.05); box-shadow: 0 20px 40px rgba(255, 152, 0, 0.3); }
+        .join-btn-huge:hover .mic-icon, .join-btn-huge:active .mic-icon { color: #fff; animation: wiggle 0.5s ease-in-out infinite; }
+        
         .mic-icon { color: #ff4d4d; display: inline-block; transform: rotate(-30deg); transition: 0.3s; }
 
         /* Global Button Style */
@@ -248,7 +254,7 @@ export default function Home() {
 
 
         /* ==========================================================
-           এখানে শুধুমাত্র মোবাইল ও ছোট ডিভাইসের জন্য রেসপন্সিভ কোড দেওয়া হলো
+           এখানে শুধুমাত্র মোবাইল ও ছোট ডিভাইসের জন্য রেসপন্সিভ কোড দেওয়া হলো
            ========================================================== */
 
         /* ল্যাপটপ বা ট্যাবলেট স্ক্রিনের জন্য (max-width: 1024px) */
@@ -269,7 +275,7 @@ export default function Home() {
           .scroll-to-top { right: 40px; bottom: 40px; }
         }
 
-        /* ট্যাবলেট ও বড় মোবাইলের জন্য (max-width: 768px) */
+        /* ট্যাবলেট ও বড় মোবাইলের জন্য (max-width: 768px) */
         @media (max-width: 768px) {
           .container { padding: 0 20px; }
           nav { flex-direction: column; gap: 20px; padding: 20px; text-align: center; }
@@ -300,6 +306,7 @@ export default function Home() {
           .faq-item-box { padding: 20px; font-size: 18px; }
           
           .community-container { padding: 60px 20px; }
+          /* Join Button Mobile adjustments, Hover works via active/hover state added above */
           .join-btn-huge { padding: 20px 40px; font-size: 28px; width: 100%; justify-content: center; flex-direction: column; text-align: center;}
           
           footer { padding: 50px 20px; text-align: center; }
